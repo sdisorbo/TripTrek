@@ -23,7 +23,7 @@ def travel_api(departDate, toEntityId, fromEntityId, adults=1, children=0, infan
     headers = {
         "Content-Type": "application/json",
         "x-rapidapi-host": "sky-scanner3.p.rapidapi.com",
-        "x-rapidapi-key": "284d1a1394msh5d040ac88e7542ap1edb47jsnc20d002c2157"  # Make sure to use a valid API key
+        "x-rapidapi-key": "key"  # Make sure to use a valid API key
         }
 
     #if adults is NA, make it into 1
