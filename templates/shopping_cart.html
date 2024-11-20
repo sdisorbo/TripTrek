@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Itinerary Summary</title>
+    <style>
+        body {
+            font-family: 'Roboto', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url('static/bg2.jpg'); /* Update this path to your image */
+            background: linear-gradient(to bottom right, rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.6)), url('static/bg2.jpg');
+            background-size: cover;
+            background-position: center;
+            background-color: #740074;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            color: #ffffff;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+        }
+
+        .itinerary {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+            max-width: 600px;
+            width: 90%;
+            margin-bottom: 20px;
+        }
+
+        .itinerary ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .itinerary li {
+            font-size: 1.2em;
+            margin: 10px 0;
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .itinerary li:last-child {
+            border-bottom: none;
+        }
+
+        .empty {
+            font-size: 1.2em;
+            color: #555;
+            margin-top: 20px;
+        }
+
+        .cart-button {
+            padding: 10px 20px;
+            font-size: 1em;
+            background-color: #d32f2f; /* Red button for clearing cart */
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        .cart-button:hover {
+            background-color: #b71c1c;
+            transform: scale(1.1);
+        }
+
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 1.1em;
+            color: #ffffff;
+            background-color: #0056b3; /* Blue button for navigation */
+            border: none;
+            border-radius: 25px;
+            text-decoration: none;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        a:hover {
+            background-color: #003a75;
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body>
+    <h1>Your Itinerary Summary</h1>
+    <button onclick="clearCart()" class="cart-button">Clear Itinerary</button>
+    <div class="itinerary">
+        {% if cart_items %}
+            <ul>
+                {% for item in cart_items %}
+                    <li>{{ item }}</li> <!-- Display each item in the cart -->
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p class="empty">Your itinerary is empty.</p>
+        {% endif %}
+    </div>
+    <a href="/">Back to Chat</a>
+
+    <script>
+        async function clearCart() {
+            const response = await fetch('/clear_cart', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+            });
+            const result = await response.json();
+            alert(result.response);
+            location.reload();
+        }
+    </script>
+</body>
+</html>
